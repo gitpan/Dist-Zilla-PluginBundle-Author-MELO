@@ -10,7 +10,6 @@ dist.ini
 lib/Dist/Zilla/PluginBundle/Author/MELO.pm
 lib/Pod/Weaver/PluginBundle/Author/MELO.pm
 t/00-compile.t
-t/000-report-versions-tiny.t
 xt/release/cpan-changes.t
 xt/release/dist-manifest.t
 xt/release/distmeta.t

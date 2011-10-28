@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::MELO;
 
 BEGIN {
 
-  our $VERSION = '0.001'; # VERSION
+  our $VERSION = '0.002'; # VERSION
   our $AUTHORITY = 'cpan:MELO'; # AUTHORITY
 }
 
@@ -21,7 +21,7 @@ with qw(
 
 use Dist::Zilla::PluginBundle::Basic ();
 
-use Dist::Zilla::PluginBundle::Git 1.112510           ();
+use Dist::Zilla::PluginBundle::Git 1.112510 ();
 use Dist::Zilla::PluginBundle::TestingMania 0.014     ();
 use Dist::Zilla::Plugin::Authority 1.005              ();
 use Dist::Zilla::Plugin::Bugtracker 1.111080          ();
@@ -33,6 +33,7 @@ use Dist::Zilla::Plugin::InstallRelease 0.007 ();
 use Dist::Zilla::Plugin::MetaNoIndex ();
 use Dist::Zilla::Plugin::MetaProvides::Package 1.12060501 ();
 use Dist::Zilla::Plugin::MinimumPerl 1.003                ();
+use Dist::Zilla::Plugin::Clean 0.02                       ();
 use Dist::Zilla::Plugin::NextRelease   ();
 use Dist::Zilla::Plugin::OurPkgVersion ();
 use Dist::Zilla::Plugin::PodWeaver     ();
@@ -70,6 +71,7 @@ method _default_attributes {
     weaver_config        => [Str  => $self->_bundle_name],
     test_pod_links       => [Bool => 1],
     test_perl_critic     => [Bool => 0],
+    test_report_versions => [Bool => 0],
   };
 }
 
@@ -165,7 +167,8 @@ method configure {
     # this is just for github
     # TODO: still not sure this is a good idea - if metacpan.org used that on
     # the distribution homepage, I would include them on my dists...
-    [PruneFiles => 'PruneRepoMetaFiles' => {match => '^(README.(pod|mm?d))$'}],
+    [ PruneFiles => 'PruneRepoMetaFiles' => {match => '^(README.(pod|mm?d))$'}
+    ],
 
     # Devel::Cover db does not need to be packaged with distribution
     [PruneFiles => 'PruneDevelCoverDatabase' => {match => '^(cover_db/.+)'}],
@@ -249,13 +252,8 @@ method configure {
   );
 
   ## Testing
-  $self->add_plugins(
-    qw(
-      ReportVersions::Tiny
-      ),
-  );
-
-  $self->add_plugins('Test::Pod::No404s') if $self->test_pod_links;
+  $self->add_plugins('ReportVersions::Tiny') if $self->test_report_versions;
+  $self->add_plugins('Test::Pod::No404s')    if $self->test_pod_links;
 
   if ($spelling_tests) {
     $self->add_plugins('Test::PodSpelling');
@@ -294,6 +292,9 @@ method configure {
   $self->add_plugins(
     [InstallRelease => {install_command => $self->install_command}])
     if $self->install_command;
+
+  # cleanup afterwards
+  $self->add_plugins('Clean');
 }
 
 
@@ -353,7 +354,7 @@ Dist::Zilla::PluginBundle::Author::MELO - Be like MELO when you build your dists
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
@@ -419,6 +420,7 @@ Possible options and their default values:
     weaver_config        = @Author::MELO
     test_pod_links       = 1  ; Pod::Links and Pod::No404s enabled
     test_perl_critic     = 0  ; No Perl::Critic by default
+    test_report_versions = 0  ; No ReportVersions::Tiny by default
 
 The C<fake_release> option also respects C<$ENV{DZIL_FAKERELEASE}>.
 

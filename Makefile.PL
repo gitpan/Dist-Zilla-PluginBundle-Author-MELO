@@ -31,6 +31,7 @@ my %WriteMakefileArgs = (
     "Dist::Zilla::Plugin::Bugtracker" => "1.111080",
     "Dist::Zilla::Plugin::CheckChangesHasContent" => "0.003",
     "Dist::Zilla::Plugin::CheckExtraTests" => "0.004",
+    "Dist::Zilla::Plugin::Clean" => "0.02",
     "Dist::Zilla::Plugin::Git::NextVersion" => 0,
     "Dist::Zilla::Plugin::GithubMeta" => "0.26",
     "Dist::Zilla::Plugin::InstallRelease" => "0.007",
@@ -65,7 +66,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
   }
