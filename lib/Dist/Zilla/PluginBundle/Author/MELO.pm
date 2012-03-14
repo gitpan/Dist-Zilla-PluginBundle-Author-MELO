@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::MELO;
 
 BEGIN {
 
-  our $VERSION = '0.002'; # VERSION
+  our $VERSION = '0.003'; # VERSION
   our $AUTHORITY = 'cpan:MELO'; # AUTHORITY
 }
 
@@ -61,6 +61,7 @@ method _default_attributes {
     auto_prereqs  => [Bool => 1],
     disable_tests => [Str  => ''],
     fake_release  => [Bool => $ENV{DZIL_FAKERELEASE}],
+    authority     => [Str => 'cpan:MELO'],
 
     # cpanm will choose the best place to install
     install_command      => [Str  => 'cpanm -v -i .'],
@@ -175,6 +176,7 @@ method configure {
 
     # munge files
     [ Authority => {
+        authority      => $self->authority,
         do_munging     => 1,
         do_metadata    => 1,
         locate_comment => $self->placeholder_comments,
@@ -344,7 +346,7 @@ __END__
 =pod
 
 =for :stopwords Pedro Melo ACKNOWLEDGEMENTS cpan testmatrix url annocpan anno bugtracker rt
-cpants kwalitee diff irc mailto metadata placeholders
+cpants kwalitee diff irc mailto metadata placeholders metacpan
 
 =encoding utf-8
 
@@ -354,7 +356,7 @@ Dist::Zilla::PluginBundle::Author::MELO - Be like MELO when you build your dists
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
@@ -412,6 +414,7 @@ Possible options and their default values:
     auto_prereqs         = 1  ; enable AutoPrereqs
     disable_tests        =    ; corresponds to @TestingMania.disable
     fake_release         = 0  ; if true will use FakeRelease instead of 'releaser'
+    authority            = 'cpan:MELO' ; to make D::Z::P::Authority happy
     install_command      = cpanm -v -i . (passed to InstallRelease)
     placeholder_comments = 1 ; use '# VERSION' and '# AUTHORITY' comments
     releaser             = UploadToCPAN
@@ -628,7 +631,7 @@ L<http://www.cpantesters.org/distro/D/Dist-Zilla-PluginBundle-Author-MELO>
 
 CPAN Testers Matrix
 
-The CPAN Testers Matrix is a website that provides a visual way to determine what Perls/platforms PASSed for a distribution.
+The CPAN Testers Matrix is a website that provides a visual overview of the test results for a distribution on various Perls/platforms.
 
 L<http://matrix.cpantesters.org/?dist=Dist-Zilla-PluginBundle-Author-MELO>
 
