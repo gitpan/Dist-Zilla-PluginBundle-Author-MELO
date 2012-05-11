@@ -57,6 +57,7 @@ my %WriteMakefileArgs = (
     "Pod::Elemental::Transformer::List" => 0,
     "Pod::Weaver" => "3.101633",
     "Pod::Weaver::Config::Assembler" => 0,
+    "Pod::Weaver::Plugin::Encoding" => 0,
     "Pod::Weaver::Plugin::StopWords" => "1.001005",
     "Pod::Weaver::Plugin::Transformer" => 0,
     "Pod::Weaver::Plugin::WikiDoc" => "0.093002",
@@ -66,7 +67,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.003",
+  "VERSION" => "0.004",
   "test" => {
     "TESTS" => "t/*.t"
   }
