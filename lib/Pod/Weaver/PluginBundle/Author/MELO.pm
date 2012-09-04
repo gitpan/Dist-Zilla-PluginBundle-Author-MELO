@@ -2,7 +2,7 @@ package Pod::Weaver::PluginBundle::Author::MELO;
 
 BEGIN {
 
-  our $VERSION = '0.004'; # VERSION
+  our $VERSION = '0.005'; # VERSION
   our $AUTHORITY = 'cpan:MELO'; # AUTHORITY
 }
 
@@ -125,9 +125,9 @@ sub mvp_bundle_config {
 
 =pod
 
-=for :stopwords Pedro Melo ACKNOWLEDGEMENTS
-
 =encoding utf-8
+
+=for :stopwords Pedro Melo ACKNOWLEDGEMENTS
 
 =head1 NAME
 
@@ -135,7 +135,7 @@ Pod::Weaver::PluginBundle::Author::MELO - MELO's Pod::Weaver config
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 

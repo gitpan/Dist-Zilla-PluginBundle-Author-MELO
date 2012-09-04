@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::MELO;
 
 BEGIN {
 
-  our $VERSION = '0.004'; # VERSION
+  our $VERSION = '0.005'; # VERSION
   our $AUTHORITY = 'cpan:MELO'; # AUTHORITY
 }
 
@@ -55,11 +55,14 @@ sub _bundle_name {
 }
 
 # FIXME: add 'debug' option to enable ReportPhase
+
+sub mvp_multivalue_args { qw( disable_tests ) }
+
 method _default_attributes {
   use Moose::Util::TypeConstraints 1.01;
   return {
     auto_prereqs  => [Bool => 1],
-    disable_tests => [Str  => ''],
+    disable_tests => ['ArrayRef[Str]' => []],
     fake_release  => [Bool => $ENV{DZIL_FAKERELEASE}],
     authority     => [Str => 'cpan:MELO'],
 
@@ -345,10 +348,10 @@ __PACKAGE__->meta->make_immutable;
 __END__
 =pod
 
+=encoding utf-8
+
 =for :stopwords Pedro Melo ACKNOWLEDGEMENTS cpan testmatrix url annocpan anno bugtracker rt
 cpants kwalitee diff irc mailto metadata placeholders metacpan
-
-=encoding utf-8
 
 =head1 NAME
 
@@ -356,7 +359,7 @@ Dist::Zilla::PluginBundle::Author::MELO - Be like MELO when you build your dists
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 
@@ -602,7 +605,7 @@ L<Pod::Weaver>
 
 =back
 
-=for Pod::Coverage log log_fatal
+=for Pod::Coverage log log_fatal mvp_multivalue_args
 
 =head1 SUPPORT
 
